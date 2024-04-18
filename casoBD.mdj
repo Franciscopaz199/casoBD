@@ -1732,7 +1732,7 @@
 									"font": "Arial;13;1",
 									"left": 688,
 									"top": 909,
-									"width": 220.6962890625,
+									"width": 241.63720703125,
 									"height": 13,
 									"text": "Programacion"
 								},
@@ -1758,7 +1758,7 @@
 											"font": "Arial;13;0",
 											"left": 693,
 											"top": 932,
-											"width": 210.6962890625,
+											"width": 231.63720703125,
 											"height": 13
 										},
 										{
@@ -1773,7 +1773,7 @@
 											"font": "Arial;13;0",
 											"left": 693,
 											"top": 947,
-											"width": 210.6962890625,
+											"width": 231.63720703125,
 											"height": 13
 										},
 										{
@@ -1788,7 +1788,7 @@
 											"font": "Arial;13;0",
 											"left": 693,
 											"top": 962,
-											"width": 210.6962890625,
+											"width": 231.63720703125,
 											"height": 13
 										},
 										{
@@ -1803,21 +1803,21 @@
 											"font": "Arial;13;0",
 											"left": 693,
 											"top": 977,
-											"width": 210.6962890625,
+											"width": 231.63720703125,
 											"height": 13
 										}
 									],
 									"font": "Arial;13;0",
 									"left": 688,
 									"top": 927,
-									"width": 220.6962890625,
+									"width": 241.63720703125,
 									"height": 68
 								}
 							],
 							"font": "Arial;13;0",
 							"left": 688,
 							"top": 904,
-							"width": 220.6962890625,
+							"width": 241.63720703125,
 							"height": 91,
 							"nameLabel": {
 								"$ref": "AAAAAAGO2SfZi0bTDOg="
@@ -2706,7 +2706,7 @@
 											"font": "Arial;13;0",
 											"left": 1957,
 											"top": 1180,
-											"width": 233.55419921875,
+											"width": 234.2841796875,
 											"height": 13
 										},
 										{
@@ -2721,7 +2721,7 @@
 											"font": "Arial;13;0",
 											"left": 1957,
 											"top": 1195,
-											"width": 233.55419921875,
+											"width": 234.2841796875,
 											"height": 13
 										}
 									],
@@ -4963,7 +4963,7 @@
 							"name": "IdPelicula",
 							"type": "INTEGER",
 							"length": "9",
-							"primaryKey": true,
+							"foreignKey": true,
 							"referenceTo": {
 								"$ref": "AAAAAAGO2BSztrA6iZs="
 							}
@@ -5251,7 +5251,7 @@
 							"_parent": {
 								"$ref": "AAAAAAGO7QW1m94hVes="
 							},
-							"name": "Nombreprofesion",
+							"name": "NombreProfesion",
 							"type": "VARCHAR",
 							"length": "15",
 							"unique": true

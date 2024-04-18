@@ -68,57 +68,64 @@ CREATE TABLE EspacioEspecial
 
 CREATE TABLE EspacioEspecialPelicula
 (
-	IdEspacioEspecialPelicula INT IDENTITY PRIMARY KEY,
 	IdEspacioEspecial INT NOT NULL,
 	IdPelicula INT NOT NULL,
 	Fecha DATE NOT NULL,
+	CONSTRAINT PK_EspacioEspecialPelicula PRIMARY KEY (IdEspacioEspecial,IdPelicula),
 	CONSTRAINT FK_EspacioEspecialPelicula_EspacioEspecial FOREIGN KEY (IdEspacioEspecial)
 		REFERENCES EspacioEspecial (IdEspacioEspecial),
 	CONSTRAINT FK_EspacioEspecialPelicula_Pelicula FOREIGN KEY (IdPelicula)
 		REFERENCES Pelicula (IdPelicula)
 );
 
-CREATE TABLE Pais
+CREATE TABLE Nacionalidad
 (
-	IdPais INT IDENTITY PRIMARY KEY,
-	NombrePais NVARCHAR(150) UNIQUE NOT NULL,
-	Nacionalidad NVARCHAR (100) UNIQUE NOT NULL
+	IdNacionalidad INT IDENTITY PRIMARY KEY,
+	NombreNacionalidad NVARCHAR(150) UNIQUE NOT NULL,
+	Pais NVARCHAR (100) UNIQUE NOT NULL
+);
+
+CREATE TABLE Profesion
+(
+	IdProfesion INT IDENTITY PRIMARY KEY,
+	NombreProfesion NVARCHAR(15) UNIQUE NOT NULL
 );
 
 CREATE TABLE Persona
 (
 	IdPersona INT IDENTITY PRIMARY KEY,
-	IdPais INT NOT NULL,
-	IdManager INT,
+	IdNacionalidad INT NOT NULL,
+	IdProfesion INT NOT NULL,
+	Manager NVARCHAR(50),
 	Nombres NVARCHAR(50) NOT NULL,
 	Apellidos NVARCHAR(50) NOT NULL,
-	FanSiteURL NVARCHAR(150),
-	PersonalSiteURL NVARCHAR(150),
 	Biografia NVARCHAR(500) NOT NULL,
 	FechaNacimiento DATE NOT NULL,
-	CONSTRAINT FK_Persona_Pais FOREIGN KEY (IdPais)
-		REFERENCES Pais (IdPais),
-	FOREIGN KEY (IdManager) REFERENCES Persona(IdPersona)
+	CONSTRAINT FK_Persona_Nacionalidad FOREIGN KEY (IdNacionalidad)
+		REFERENCES Nacionalidad (IdNacionalidad),
+	CONSTRAINT FK_Persona_Profesion FOREIGN KEY (IdProfesion)
+		REFERENCES Profesion (IdProfesion)
 );
 
-CREATE TABLE PeliculaPersona
+CREATE TABLE Personaje
 (
-	IdPeliculaPersona INT IDENTITY PRIMARY KEY,
-	IdPelicula INT NOT NULL,
+	IdPersonaje INT IDENTITY PRIMARY KEY,
 	IdPersona INT NOT NULL,
-	CONSTRAINT FK_PeliculaPersona_Pelicula FOREIGN KEY (IdPelicula)
-		REFERENCES Pelicula (IdPelicula),
-	CONSTRAINT FK_PeliculaPersona_Persona FOREIGN KEY (IdPersona)
-		REFERENCES Persona (IdPersona)
+	IdPelicula INT NOT NULL
+	CONSTRAINT FK_Personaje_Persona FOREIGN KEY (IdPersona)
+		REFERENCES Persona (IdPersona),
+	CONSTRAINT FK_Personaje_Pelicula FOREIGN KEY (IdPelicula)
+		REFERENCES Pelicula (IdPelicula)
 );
 
-CREATE TABLE ProtagonistaPrincipal
+CREATE TABLE Sitie
 (
-	IdPeliculaPersona INT NOT NULL,
-	Personaje NVARCHAR(100)
-	CONSTRAINT PK_ProtagonistaPrincipal PRIMARY KEY (IdPeliculaPersona),
-	CONSTRAINT FK_ProtagonistaPrincipal FOREIGN KEY (IdPeliculaPersona)
-		REFERENCES PeliculaPersona (IdPeliculaPersona)
+	IdPersona INT NOT NULL,
+	FanSiteURL NVARCHAR(150) NOT NULL,
+	PersonalSiteURL NVARCHAR(150) NOT NULL,
+	CONSTRAINT PK_Sitie PRIMARY KEY (IdPersona),
+	CONSTRAINT FK_Sitie_Persona FOREIGN KEY (IdPersona)
+		REFERENCES Persona (IdPersona)
 );
 
 CREATE TABLE TipoCargo
@@ -127,13 +134,16 @@ CREATE TABLE TipoCargo
 	NombreTipoCargo NVARCHAR(50) UNIQUE NOT NULL
 );
 
-CREATE TABLE PeliculaPersonaTipoCargo
+CREATE TABLE PeliculaPersonaCargo
 (
-	IdPeliculaPersona INT NOT NULL,
+	IdPelicula INT NOT NULL,
+	IdPersona INT NOT NULL,
 	IdTipoCargo INT NOT NULL,
-	CONSTRAINT PK_PeliculaPersonaTipoCargo PRIMARY KEY (IdPeliculaPersona, IdTipoCargo),
-	CONSTRAINT FK_PeliculaPersonaTipoCargo_PeliculaPersona FOREIGN KEY (IdPeliculaPersona)
-		REFERENCES PeliculaPersona (IdPeliculaPersona),
-	CONSTRAINT FK_PeliculaPersonaTipoCargo_TipoCargo FOREIGN KEY (IdTipoCargo)
+	CONSTRAINT PK_PeliculaPersonaCargo PRIMARY KEY (IdPelicula, IdPersona, IdTipoCargo),
+	CONSTRAINT FK_PeliculaPersonaCargo_Pelicula FOREIGN KEY (IdPelicula)
+		REFERENCES Pelicula (IdPelicula),
+	CONSTRAINT FK_PeliculaPersonaCargo_Persona FOREIGN KEY (IdPersona)
+		REFERENCES Persona (IdPersona),
+	CONSTRAINT FK_PeliculaPersonaCargo_TipoCargo FOREIGN KEY (IdTipoCargo)
 		REFERENCES TipoCargo (IdTipoCargo)
 );
