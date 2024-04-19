@@ -364,7 +364,7 @@
 									"top": 1149,
 									"width": 262.35595703125,
 									"height": 13,
-									"text": "Persona"
+									"text": "Artista"
 								},
 								{
 									"_type": "ERDColumnCompartmentView",
@@ -1033,7 +1033,7 @@
 										"$ref": "AAAAAAGO2CJYx7F9ZC8="
 									},
 									"edgePosition": 1,
-									"text": "FK_Persona_Pais"
+									"text": "FK_Artista_Pais"
 								},
 								{
 									"_type": "EdgeLabelView",
@@ -1192,7 +1192,7 @@
 									"top": 773,
 									"width": 280.43408203125,
 									"height": 13,
-									"text": "PeliculaPersonaCargo"
+									"text": "PeliculaArtistaCargo"
 								},
 								{
 									"_type": "ERDColumnCompartmentView",
@@ -1328,7 +1328,7 @@
 										"$ref": "AAAAAAGO2D0X3rQsHGA="
 									},
 									"edgePosition": 1,
-									"text": "FK_PeliculaPersonaCargo_Pelicula"
+									"text": "FK_PeliculaArtistaCargo_Pelicula"
 								},
 								{
 									"_type": "EdgeLabelView",
@@ -1428,7 +1428,7 @@
 										"$ref": "AAAAAAGO2D1kdLRDry8="
 									},
 									"edgePosition": 2,
-									"text": "FK_PeliculaPersona_Persona"
+									"text": "FK_PeliculaArtista_Artista"
 								},
 								{
 									"_type": "EdgeLabelView",
@@ -2360,7 +2360,7 @@
 										"$ref": "AAAAAAGO7K14bN1Ucqg="
 									},
 									"edgePosition": 2,
-									"text": "FK_Personaje_Persona"
+									"text": "FK_Personaje_Artista"
 								},
 								{
 									"_type": "EdgeLabelView",
@@ -2508,7 +2508,7 @@
 										"$ref": "AAAAAAGO7LJH7t21VrU="
 									},
 									"edgePosition": 1,
-									"text": "FK_PeliculaPersonaCargo_TipoCargo"
+									"text": "FK_PeliculaArtistaCargo_TipoCargo"
 								},
 								{
 									"_type": "EdgeLabelView",
@@ -2680,7 +2680,7 @@
 									"font": "Arial;13;1",
 									"left": 1952,
 									"top": 1157,
-									"width": 243.55419921875,
+									"width": 244.2841796875,
 									"height": 13,
 									"text": "Profesion"
 								},
@@ -2728,14 +2728,14 @@
 									"font": "Arial;13;0",
 									"left": 1952,
 									"top": 1175,
-									"width": 243.55419921875,
+									"width": 244.2841796875,
 									"height": 38
 								}
 							],
 							"font": "Arial;13;0",
 							"left": 1952,
 							"top": 1152,
-							"width": 243.55419921875,
+							"width": 244.2841796875,
 							"height": 61,
 							"nameLabel": {
 								"$ref": "AAAAAAGO7QW1nN4kGms="
@@ -2771,7 +2771,7 @@
 										"$ref": "AAAAAAGO7Qc4gt5VrMA="
 									},
 									"edgePosition": 1,
-									"text": "FK_Persona_Profesion"
+									"text": "FK_Artista_Profesion"
 								},
 								{
 									"_type": "EdgeLabelView",
@@ -2845,7 +2845,7 @@
 									"visible": false,
 									"font": "Arial;13;0",
 									"left": 1374,
-									"top": 1233,
+									"top": 1251,
 									"height": 13,
 									"alpha": 1.5707963267948966,
 									"distance": 15,
@@ -2862,7 +2862,7 @@
 									},
 									"font": "Arial;13;0",
 									"left": 1312,
-									"top": 1232,
+									"top": 1250,
 									"width": 101.892578125,
 									"height": 13,
 									"alpha": 0.18394343562761137,
@@ -2871,7 +2871,7 @@
 										"$ref": "AAAAAAGO7QgGQt5rWbQ="
 									},
 									"edgePosition": 2,
-									"text": "FK_Site_Persona"
+									"text": "FK_Site_Artista"
 								},
 								{
 									"_type": "EdgeLabelView",
@@ -2881,7 +2881,7 @@
 									},
 									"font": "Arial;13;0",
 									"left": 1446,
-									"top": 1233,
+									"top": 1251,
 									"height": 13,
 									"alpha": -0.5235987755982988,
 									"distance": 30,
@@ -2898,7 +2898,7 @@
 								"$ref": "AAAAAAGO7Lnz9t3qvHo="
 							},
 							"lineStyle": 2,
-							"points": "1276:1254;1472:1254",
+							"points": "1276:1272;1472:1272",
 							"nameLabel": {
 								"$ref": "AAAAAAGO7QgGQt5sfhs="
 							},
@@ -2925,7 +2925,7 @@
 							"_parent": {
 								"$ref": "AAAAAAGO2A7gN6/eeD4="
 							},
-							"name": "FK_PeliculaPersonaCargo_Pelicula",
+							"name": "FK_PeliculaArtistaCargo_Pelicula",
 							"end1": {
 								"_type": "ERDRelationshipEnd",
 								"_id": "AAAAAAGO2D0X3rQpRe0=",
@@ -3279,7 +3279,7 @@
 					"_parent": {
 						"$ref": "AAAAAAGO1/zAPK/ZFxQ="
 					},
-					"name": "Persona",
+					"name": "Artista",
 					"ownedElements": [
 						{
 							"_type": "ERDRelationship",
@@ -3377,7 +3377,7 @@
 								"_parent": {
 									"$ref": "AAAAAAGO2D1kc7Q/JQs="
 								},
-								"name": "FK_PeliculaPersona_Persona",
+								"name": "FK_PeliculaArtista_Artista",
 								"reference": {
 									"$ref": "AAAAAAGO2BLLObANwsw="
 								}
@@ -3400,7 +3400,7 @@
 							"_parent": {
 								"$ref": "AAAAAAGO2BLLObANwsw="
 							},
-							"name": "FK_Persona_Profesion",
+							"name": "FK_Artista_Profesion",
 							"end1": {
 								"_type": "ERDRelationshipEnd",
 								"_id": "AAAAAAGO7Qc4gt5Snqg=",
@@ -3431,7 +3431,7 @@
 							"_parent": {
 								"$ref": "AAAAAAGO2BLLObANwsw="
 							},
-							"name": "IdPersona",
+							"name": "IdArtista",
 							"type": "INTEGER",
 							"length": "9",
 							"primaryKey": true
@@ -3694,7 +3694,7 @@
 							"_parent": {
 								"$ref": "AAAAAAGO2CDacrE+bus="
 							},
-							"name": "FK_Persona_Pais",
+							"name": "FK_Artista_Pais",
 							"end1": {
 								"_type": "ERDRelationshipEnd",
 								"_id": "AAAAAAGO2CJYxrF6yZ0=",
@@ -4130,7 +4130,7 @@
 					"_parent": {
 						"$ref": "AAAAAAGO1/zAPK/ZFxQ="
 					},
-					"name": "PeliculaPersonaCargo",
+					"name": "PeliculaArtistaCargo",
 					"ownedElements": [
 						{
 							"_type": "ERDRelationship",
@@ -4196,7 +4196,7 @@
 							"_parent": {
 								"$ref": "AAAAAAGO2DonKrPIHdU="
 							},
-							"name": "FK_PeliculaPersonaCargo_TipoCargo",
+							"name": "FK_PeliculaArtistaCargo_TipoCargo",
 							"end1": {
 								"_type": "ERDRelationshipEnd",
 								"_id": "AAAAAAGO7LJH7t2yEQk=",
@@ -4253,7 +4253,7 @@
 							"_parent": {
 								"$ref": "AAAAAAGO2DonKrPIHdU="
 							},
-							"name": "IdPersona",
+							"name": "IdArtista",
 							"type": "INTEGER",
 							"length": "9",
 							"primaryKey": true,
@@ -5071,7 +5071,7 @@
 								"_parent": {
 									"$ref": "AAAAAAGO7K14bN1Qlas="
 								},
-								"name": "FK_Personaje_Persona",
+								"name": "FK_Personaje_Artista",
 								"reference": {
 									"$ref": "AAAAAAGO7KIqCtz1Mms="
 								},
@@ -5107,7 +5107,7 @@
 							"_parent": {
 								"$ref": "AAAAAAGO7KIqCtz1Mms="
 							},
-							"name": "IdPersona",
+							"name": "IdArtista",
 							"type": "INTEGER",
 							"length": "9",
 							"foreignKey": true,
@@ -5171,7 +5171,7 @@
 								"_parent": {
 									"$ref": "AAAAAAGO7QgGQt5n+R8="
 								},
-								"name": "FK_Site_Persona",
+								"name": "FK_Site_Artista",
 								"reference": {
 									"$ref": "AAAAAAGO7Lnz9t3osek="
 								}
@@ -5195,7 +5195,7 @@
 							"_parent": {
 								"$ref": "AAAAAAGO7Lnz9t3osek="
 							},
-							"name": "IdPersona",
+							"name": "IdArtista",
 							"type": "INTEGER",
 							"length": "9",
 							"primaryKey": true,
@@ -5212,7 +5212,8 @@
 							},
 							"name": "FanSiteURL",
 							"type": "VARCHAR",
-							"length": "150"
+							"length": "150",
+							"unique": true
 						},
 						{
 							"_type": "ERDColumn",
@@ -5222,7 +5223,8 @@
 							},
 							"name": "PersonalSiteURL",
 							"type": "VARCHAR",
-							"length": "150"
+							"length": "150",
+							"unique": true
 						}
 					]
 				},
