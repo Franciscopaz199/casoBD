@@ -7,7 +7,7 @@ CREATE SCHEMA CasoDB;
 CREATE TABLE Genero
 (
 	IdGenero INT IDENTITY PRIMARY KEY,
-	NombreCompleto NVARCHAR(50) NOT NULL
+	NombreGenero NVARCHAR(50) NOT NULL
 );
 
 CREATE TABLE Clasificacion
