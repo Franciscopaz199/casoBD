@@ -91,9 +91,9 @@ CREATE TABLE Profesion
 	NombreProfesion NVARCHAR(15) UNIQUE NOT NULL
 );
 
-CREATE TABLE Persona
+CREATE TABLE Artista
 (
-	IdPersona INT IDENTITY PRIMARY KEY,
+	IdArtista INT IDENTITY PRIMARY KEY,
 	IdNacionalidad INT NOT NULL,
 	IdProfesion INT NOT NULL,
 	Manager NVARCHAR(50),
@@ -101,31 +101,31 @@ CREATE TABLE Persona
 	Apellidos NVARCHAR(50) NOT NULL,
 	Biografia NVARCHAR(500) NOT NULL,
 	FechaNacimiento DATE NOT NULL,
-	CONSTRAINT FK_Persona_Nacionalidad FOREIGN KEY (IdNacionalidad)
+	CONSTRAINT FK_Artista_Nacionalidad FOREIGN KEY (IdNacionalidad)
 		REFERENCES Nacionalidad (IdNacionalidad),
-	CONSTRAINT FK_Persona_Profesion FOREIGN KEY (IdProfesion)
+	CONSTRAINT FK_Artista_Profesion FOREIGN KEY (IdProfesion)
 		REFERENCES Profesion (IdProfesion)
 );
 
 CREATE TABLE Personaje
 (
 	IdPersonaje INT IDENTITY PRIMARY KEY,
-	IdPersona INT NOT NULL,
+	IdArtista INT NOT NULL,
 	IdPelicula INT NOT NULL
-	CONSTRAINT FK_Personaje_Persona FOREIGN KEY (IdPersona)
-		REFERENCES Persona (IdPersona),
+	CONSTRAINT FK_Personaje_Artista FOREIGN KEY (IdArtista)
+		REFERENCES Artista (IdArtista),
 	CONSTRAINT FK_Personaje_Pelicula FOREIGN KEY (IdPelicula)
 		REFERENCES Pelicula (IdPelicula)
 );
 
 CREATE TABLE Sitie
 (
-	IdPersona INT NOT NULL,
+	IdArtista INT NOT NULL,
 	FanSiteURL NVARCHAR(150) NOT NULL,
 	PersonalSiteURL NVARCHAR(150) NOT NULL,
-	CONSTRAINT PK_Sitie PRIMARY KEY (IdPersona),
-	CONSTRAINT FK_Sitie_Persona FOREIGN KEY (IdPersona)
-		REFERENCES Persona (IdPersona)
+	CONSTRAINT PK_Sitie PRIMARY KEY (IdArtista),
+	CONSTRAINT FK_Sitie_Artista FOREIGN KEY (IdArtista)
+		REFERENCES Artista (IdArtista)
 );
 
 CREATE TABLE TipoCargo
@@ -134,16 +134,16 @@ CREATE TABLE TipoCargo
 	NombreTipoCargo NVARCHAR(50) UNIQUE NOT NULL
 );
 
-CREATE TABLE PeliculaPersonaCargo
+CREATE TABLE PeliculaArtistaCargo
 (
 	IdPelicula INT NOT NULL,
-	IdPersona INT NOT NULL,
+	IdArtista INT NOT NULL,
 	IdTipoCargo INT NOT NULL,
-	CONSTRAINT PK_PeliculaPersonaCargo PRIMARY KEY (IdPelicula, IdPersona, IdTipoCargo),
-	CONSTRAINT FK_PeliculaPersonaCargo_Pelicula FOREIGN KEY (IdPelicula)
+	CONSTRAINT PK_PeliculaArtistaCargo PRIMARY KEY (IdPelicula, IdArtista, IdTipoCargo),
+	CONSTRAINT FK_PeliculaArtistaCargo_Pelicula FOREIGN KEY (IdPelicula)
 		REFERENCES Pelicula (IdPelicula),
-	CONSTRAINT FK_PeliculaPersonaCargo_Persona FOREIGN KEY (IdPersona)
-		REFERENCES Persona (IdPersona),
-	CONSTRAINT FK_PeliculaPersonaCargo_TipoCargo FOREIGN KEY (IdTipoCargo)
+	CONSTRAINT FK_PeliculaArtistaCargo_Artista FOREIGN KEY (IdArtista)
+		REFERENCES Artista (IdArtista),
+	CONSTRAINT FK_PeliculaArtistaCargo_TipoCargo FOREIGN KEY (IdTipoCargo)
 		REFERENCES TipoCargo (IdTipoCargo)
 );
