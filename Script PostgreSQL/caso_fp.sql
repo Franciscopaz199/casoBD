@@ -6,13 +6,13 @@ CREATE SCHEMA elenco;
 CREATE TABLE catalogo_programacion.genero
 (
     id_genero SERIAL PRIMARY KEY,
-    nombre_genero varchar(50) NOT NULL
+    nombre_genero varchar(50) UNIQUE NOT NULL
 );
 
 CREATE TABLE catalogo_programacion.clasificacion
 (
     id_clasificacion SERIAL PRIMARY KEY,
-    nombre_clasificacion varchar(50) NOT NULL
+    nombre_clasificacion varchar(50) UNIQUE NOT NULL
 );
 
 CREATE TABLE catalogo_programacion.pelicula
@@ -23,7 +23,7 @@ CREATE TABLE catalogo_programacion.pelicula
     nombre_pelicula varchar(150) UNIQUE NOT NULL,
     anio_relace date NOT NULL,
     duracion time NOT NULL,
-    descripcion_pelicula varchar,
+    descripcion_pelicula varchar(300),
     CONSTRAINT fk_pelicula_genero FOREIGN KEY (id_genero)
         REFERENCES catalogo_programacion.genero (id_genero),
     CONSTRAINT fk_pelicula_clasificacion FOREIGN KEY (id_clasificacion)
@@ -33,7 +33,7 @@ CREATE TABLE catalogo_programacion.pelicula
 CREATE TABLE catalogo_programacion.compania_productora
 (
     id_compania_productora SERIAL PRIMARY KEY,
-    nombre_compania_productora varchar(100)
+    nombre_compania_productora varchar(100) UNIQUE NOT NULL
 );
 
 CREATE TABLE catalogo_programacion.pelicula_compania_productora
@@ -111,6 +111,8 @@ CREATE TABLE elenco.personaje
     id_personaje SERIAL PRIMARY KEY,
     id_artista int NOT NULL,
     id_pelicula int NOT NULL,
+ 	nombre_personaje varchar(100) NOT NULL,
+ 	personaje_principal boolean DEFAULT(FALSE),
     CONSTRAINT fk_personaje_artista FOREIGN KEY (id_artista)
         REFERENCES elenco.artista (id_artista),
     CONSTRAINT fk_personaje_pelicula FOREIGN KEY (id_pelicula)
@@ -120,8 +122,8 @@ CREATE TABLE elenco.personaje
 CREATE TABLE elenco.sitie
 (
     id_artista int NOT NULL,
-    fan_site_url varchar(150) NOT NULL,
-    personal_site_url varchar(150) NOT NULL,
+    fan_site_url varchar(150) UNIQUE NOT NULL,
+    personal_site_url varchar(150) UNIQUE NOT NULL,
     CONSTRAINT pk_sitie PRIMARY KEY (id_artista),
     CONSTRAINT fk_sitie_artista FOREIGN KEY (id_artista)
         REFERENCES elenco.artista (id_artista)
@@ -146,3 +148,4 @@ CREATE TABLE elenco.pelicula_artista_cargo
     CONSTRAINT fk_pelicula_artista_cargo_tipo_cargo FOREIGN KEY (id_tipo_cargo)
         REFERENCES elenco.tipo_cargo (id_tipo_cargo)
 );
+---
