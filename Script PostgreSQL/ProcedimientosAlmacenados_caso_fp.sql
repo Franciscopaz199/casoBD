@@ -1,5 +1,4 @@
 
-
 --Insertar Genero
 CREATE OR REPLACE FUNCTION insertar_genero(
     nombre_genero varchar(50)
@@ -9,8 +8,6 @@ BEGIN
 	VALUES (nombre_genero);
 END;
 $$ LANGUAGE plpgsql;
-
-SELECT insertar_genero('ComediaTrajica');
 
 --Mostrar todos los generos
 CREATE OR REPLACE FUNCTION mostrar_genero()
@@ -46,7 +43,6 @@ $$ LANGUAGE plpgsql;
 SELECT mostrar_genero_por_id(2);
 
 --Eliminar
-
 CREATE OR REPLACE FUNCTION eliminar_genero(
 	IN p_id_genero int
 ) RETURNS VOID AS $$
@@ -57,7 +53,6 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-SELECT eliminar_genero(1);
 
 --Actualizar Genero
 CREATE OR REPLACE FUNCTION actualizar_genero(
@@ -71,9 +66,6 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-SELECT actualizar_genero(2,'Comedia');
-
-
 -------------------------------------------------------------------------------------------------------------
 
 --Insertar clasificacion
@@ -85,8 +77,6 @@ BEGIN
 	VALUES (nombre_clasificacion);
 END;
 $$ LANGUAGE plpgsql;
-
-SELECT insertar_clasificacion('clasi 1');
 
 --Mostrar Clasificación
 CREATE OR REPLACE FUNCTION mostrar_clasificacion()
@@ -121,7 +111,6 @@ $$ LANGUAGE plpgsql;
 
 SELECT mostrar_clasificacion_por_id(2);
 
-
 --ELIMINAR
 CREATE OR REPLACE FUNCTION eliminar_clasificacion(
     IN p_id_clasificacion int
@@ -132,8 +121,6 @@ BEGIN
 	WHERE id_clasificacion = p_id_clasificacion;
 END;
 $$ LANGUAGE plpgsql;
-
-SELECT eliminar_clasificacion(1);
 
 --Actualizar
 CREATE OR REPLACE FUNCTION actualizar_clasificacion(
@@ -150,9 +137,6 @@ $$ LANGUAGE plpgsql;
 
 -------------------------------------------------------------------------------------------------------------------
 
-
-SELECT actualizar_clasificacion(2,'clasi2');
-
 --Insertar Pelicula
 CREATE OR REPLACE FUNCTION insertar_pelicula(
     nombre_pelicula varchar(150),
@@ -168,7 +152,6 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-SELECT insertar_pelicula('nombre',1,1,'20-05-2002','2:00:00','descripcion peli 1');
 SELECT *
 FROM catalogo_programacion.pelicula
 
@@ -230,8 +213,6 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-SELECT eliminar_pelicula(1);
-
 --Actualizar
 CREATE OR REPLACE FUNCTION actualizar_pelicula(
     p_id_pelicula int,
@@ -257,7 +238,6 @@ $$ LANGUAGE plpgsql;
 
 --------------------------------------------------------------------------------------------------
 
-
 --Insertar compania productora
 CREATE OR REPLACE FUNCTION insertar_compania_productora(
     nombre_compania_productora varchar(100)
@@ -267,8 +247,6 @@ BEGIN
     VALUES (nombre_compania_productora);
 END;
 $$ LANGUAGE plpgsql;
-
-SELECT insertar_compania_productora('Comp 1');
 
 --Mostrar companias productoras
 CREATE OR REPLACE FUNCTION mostrar_compania_productora()
@@ -313,8 +291,6 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-SELECT eliminar_compania_productora(2);
-
 --Actualizar
 CREATE OR REPLACE FUNCTION actualizar_compania_productora(
     p_id_compania_productora int,
@@ -328,6 +304,61 @@ END;
 $$ LANGUAGE plpgsql;
 
 --------------------------------------------------------------------------------------------------------------
+
+--Insertar
+CREATE OR REPLACE FUNCTION insertar_pelicula_compania_productora(
+    p_id_pelicula int,
+    p_id_compania_productora int
+) RETURNS VOID AS $$
+BEGIN
+    INSERT INTO catalogo_programacion.pelicula_compania_productora (id_pelicula, id_compania_productora)
+    VALUES (p_id_pelicula, p_id_compania_productora);
+END;
+$$ LANGUAGE plpgsql;
+
+--Mostrar
+CREATE OR REPLACE FUNCTION mostrar_pelicula_compania_productora() 
+RETURNS TABLE (
+    id_pelicula int,
+    id_compania_productora int
+) AS $$
+BEGIN
+    RETURN QUERY 
+    SELECT pcp.id_pelicula, pcp.id_compania_productora
+    FROM catalogo_programacion.pelicula_compania_productora pcp;
+END;
+$$ LANGUAGE plpgsql;
+
+SELECT mostrar_pelicula_compania_productora();
+
+--Eliminar
+CREATE OR REPLACE FUNCTION eliminar_pelicula_compania_productora(
+    p_id_pelicula int,
+    p_id_compania_productora int
+) RETURNS VOID AS $$
+BEGIN
+    DELETE 
+	FROM catalogo_programacion.pelicula_compania_productora
+    WHERE id_pelicula = p_id_pelicula AND id_compania_productora = p_id_compania_productora;
+END;
+$$ LANGUAGE plpgsql;
+
+--Actualizar
+CREATE OR REPLACE FUNCTION actualizar_pelicula_compania_productora(
+    p_id_pelicula int,
+    p_id_compania_productora int,
+    p_nuevo_id_pelicula int,
+    p_nuevo_id_compania_productora int
+) RETURNS VOID AS $$
+BEGIN
+    UPDATE catalogo_programacion.pelicula_compania_productora
+    SET id_pelicula = p_nuevo_id_pelicula,
+		id_compania_productora = p_nuevo_id_compania_productora
+    WHERE id_pelicula = p_id_pelicula AND id_compania_productora = p_id_compania_productora;
+END;
+$$ LANGUAGE plpgsql;
+
+-----------------------------------------------------------------------------------------------------------------
 
 --Insertar Programacion
 CREATE OR REPLACE FUNCTION insertar_programacion(
@@ -369,7 +400,7 @@ BEGIN
     RETURN QUERY 
 	SELECT p.id_programacion, p.hora, p.fecha
 	FROM catalogo_programacion.programacion p
-	WHERE p.id_programacion = p_id_prpgramacion;
+	WHERE p.id_programacion = p_id_programacion;
 END;
 $$ LANGUAGE plpgsql;
 
@@ -434,7 +465,7 @@ $$ LANGUAGE plpgsql;
 
 SELECT mostrar_espacio_especial();
 
---Mostrar una programacion
+--Mostrar por filtros
 CREATE OR REPLACE FUNCTION mostrar_espacio_especial_por_id(
     p_id_espacio_especial int
 ) RETURNS TABLE (
@@ -447,9 +478,11 @@ BEGIN
     RETURN QUERY 
 	SELECT e.id_espacio_especial, e.nombre, e.descripcion, e.horario
 	FROM catalogo_programacion.espacio_especial e
-	WHERE e.id_espacio_espacial = p_id_espacio_especial;
+	WHERE e.id_espacio_especial = p_id_espacio_especial;
 END;
 $$ LANGUAGE plpgsql;
+
+SELECT mostrar_espacio_especial_por_id(2);
 
 --Eliminar espacio especial
 CREATE OR REPLACE FUNCTION eliminar_espacio_especial(
@@ -578,6 +611,8 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
+SELECT  mostrar_nacionalidad_por_id(2);
+
 --Eliminar
 CREATE OR REPLACE FUNCTION eliminar_nacionalidad(
     p_id_nacionalidad int
@@ -630,7 +665,7 @@ $$ LANGUAGE plpgsql;
 
 SELECT mostrar_profesion();
 
---Mostrar una nacionalidad
+--Mostrar Profesion
 CREATE OR REPLACE FUNCTION mostrar_profesion_por_id(
     p_id_profesion int
 ) RETURNS TABLE (
@@ -644,6 +679,8 @@ BEGIN
 	WHERE p.id_profesion = p_id_profesion;
 END;
 $$ LANGUAGE plpgsql;
+
+SELECT mostrar_profesion_por_id(2); 
 
 --Eliminar
 CREATE OR REPLACE FUNCTION eliminar_profesion(
@@ -731,6 +768,8 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
+SELECT mostrar_artista_por_id(2);
+
 --Eliminar
 CREATE OR REPLACE FUNCTION eliminar_artista(
     p_id_artista int
@@ -770,8 +809,8 @@ $$ LANGUAGE plpgsql;
 
 --Insertar personaje
 CREATE OR REPLACE FUNCTION insertar_personaje(
-    id_artista INT,
-    id_pelicula INT,
+    id_artista int,
+    id_pelicula int,
     nombre_personaje varchar(100),
     personaje_principal boolean DEFAULT FALSE
 ) RETURNS VOID AS $$
@@ -819,6 +858,8 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
+SELECT mostrar_personaje_por_id(2);
+
 --Eliminar personaje
 CREATE OR REPLACE FUNCTION eliminar_personaje(
     p_id_personaje int
@@ -852,9 +893,9 @@ $$ LANGUAGE plpgsql;
 
 --Insertar
 CREATE OR REPLACE FUNCTION insertar_sitie(
-    id_artista INT,
-    fan_site_url VARCHAR(150),
-    personal_site_url VARCHAR(150)
+    id_artista int,
+    fan_site_url varchar(150),
+    personal_site_url varchar(150)
 ) RETURNS VOID AS $$
 BEGIN
     INSERT INTO elenco.sitie (id_artista, fan_site_url, personal_site_url)
@@ -876,10 +917,10 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-SELECT mostrar_personaje();
+SELECT mostrar_sitie();
 
---Mostrar un personaje
-CREATE OR REPLACE FUNCTION mostrar_personaje_por_id(
+--Mostrar 
+CREATE OR REPLACE FUNCTION mostrar_sitie_artista(
     p_id_artista int
 ) RETURNS TABLE (
     id_artista int,
@@ -894,9 +935,11 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
+SELECT mostrar_sitie_artista(16);
+
 --Eliminar
 CREATE OR REPLACE FUNCTION eliminar_sitie(
-    p_id_artista INT
+    p_id_artista int
 ) RETURNS VOID AS $$
 BEGIN
     DELETE 
@@ -907,9 +950,9 @@ $$ LANGUAGE plpgsql;
 
 --Actualizar
 CREATE OR REPLACE FUNCTION actualizar_sitie(
-    p_id_artista INT,
-    p_fan_site_url VARCHAR(150),
-    p_personal_site_url VARCHAR(150)
+    p_id_artista int,
+    p_fan_site_url varchar(150),
+    p_personal_site_url varchar(150)
 ) RETURNS VOID AS $$
 BEGIN
     UPDATE elenco.sitie
@@ -930,8 +973,6 @@ BEGIN
     VALUES (nombre_tipo_cargo);
 END;
 $$ LANGUAGE plpgsql;
-
-SELECT insertar_tipo_cargo('cargo2');
 
 --Mostrar TipoCargo
 CREATE OR REPLACE FUNCTION mostrar_tipo_cargo()
@@ -967,7 +1008,7 @@ SELECT mostrar_cargo_por_id(1);
 
 --Eliminar
 CREATE OR REPLACE FUNCTION eliminar_tipo_cargo(
-    p_id_tipo_cargo INT
+    p_id_tipo_cargo int
 ) RETURNS VOID AS $$
 BEGIN
     DELETE 
@@ -976,12 +1017,10 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-SELECT eliminar_tipo_cargo(1);
-
 --Actualizar
 CREATE OR REPLACE FUNCTION actualizar_cargo(
-    p_id_tipo_cargo INT,
-    p_nombre_tipo_cargo VARCHAR(50)
+    p_id_tipo_cargo int,
+    p_nombre_tipo_cargo varchar(50)
 ) RETURNS VOID AS $$
 BEGIN
     UPDATE elenco.tipo_cargo
@@ -990,15 +1029,13 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-SELECT actualizar_cargo(2,'cargo 2');
-
 -------------------------------------------------------------------------------------------------------
 
 --Insertar 
 CREATE OR REPLACE FUNCTION insertar_pelicula_artista_cargo(
-    id_pelicula INT,
-    id_artista INT,
-    id_tipo_cargo INT
+    id_pelicula int,
+    id_artista int,
+    id_tipo_cargo int
 ) RETURNS VOID AS $$
 BEGIN
     INSERT INTO elenco.pelicula_artista_cargo (id_pelicula, id_artista, id_tipo_cargo)
@@ -1023,7 +1060,7 @@ $$ LANGUAGE plpgsql;
 SELECT mostrar_pelicula_artista_cargo();
 
 --Mostrar 
-CREATE OR REPLACE FUNCTION mostrar_cargo_por_id(
+CREATE OR REPLACE FUNCTION mostrar_pelicula_artista_cargo_id(
     p_id_artista int
 ) RETURNS TABLE (
     id_pelicula int,
@@ -1038,11 +1075,13 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
+SELECT mostrar_pelicula_artista_cargo_id(2);
+
 --Eliminar
 CREATE OR REPLACE FUNCTION eliminar_pelicula_artista_cargo(
-    p_id_pelicula INT,
-    p_id_artista INT,
-    p_id_tipo_cargo INT
+    p_id_pelicula int,
+    p_id_artista int,
+    p_id_tipo_cargo int
 ) RETURNS VOID AS $$
 BEGIN
     DELETE FROM elenco.pelicula_artista_cargo 
@@ -1052,12 +1091,9 @@ $$ LANGUAGE plpgsql;
 
 --Actualizar
 CREATE OR REPLACE FUNCTION actualizar_pelicula_artista_cargo(
-    p_id_pelicula INT,
-    p_id_artista INT,
-    p_id_tipo_cargo INT,
-    p_id_pelicula INT,
-    p_id_artista INT,
-    p_id_tipo_cargo INT
+    p_id_pelicula int,
+    p_id_artista int,
+    p_id_tipo_cargo int
 ) RETURNS VOID AS $$
 BEGIN
     UPDATE elenco.pelicula_artista_cargo
@@ -1069,6 +1105,3 @@ BEGIN
         AND id_tipo_cargo = p_id_tipo_cargo;
 END;
 $$ LANGUAGE plpgsql;
-
-
-
