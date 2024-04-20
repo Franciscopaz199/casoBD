@@ -12,11 +12,7 @@ CREATE TABLE catalogo_programacion.genero
 CREATE TABLE catalogo_programacion.clasificacion
 (
     id_clasificacion SERIAL PRIMARY KEY,
-<<<<<<< HEAD
-    nombre_clasificacion varchar(50) UNIQUE NOT NULL
-=======
     nombre_clasificacion varchar(50) NOT NULL UNIQUE
->>>>>>> 3aa2d6ea2eb3dc102bab6211e3cbd9b0b2c84067
 );
 
 CREATE TABLE catalogo_programacion.pelicula
@@ -115,13 +111,8 @@ CREATE TABLE elenco.personaje
     id_personaje SERIAL PRIMARY KEY,
     id_artista int NOT NULL,
     id_pelicula int NOT NULL,
-<<<<<<< HEAD
- 	nombre_personaje varchar(100) NOT NULL,
- 	personaje_principal boolean DEFAULT(FALSE),
-=======
 	nombre_personaje VARCHAR(100) NOT NULL,
 	personaje_principal BOOLEAN DEFAULT(FALSE),
->>>>>>> 3aa2d6ea2eb3dc102bab6211e3cbd9b0b2c84067
     CONSTRAINT fk_personaje_artista FOREIGN KEY (id_artista)
         REFERENCES elenco.artista (id_artista),
     CONSTRAINT fk_personaje_pelicula FOREIGN KEY (id_pelicula)

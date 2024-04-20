@@ -474,19 +474,18 @@ VALUES
     (12, 4, 'John', 'Williams', 'Biografía de John Williams...', '1932-02-08');
 
 -- Editores
-INSERT INTO elenco.artista (id_nacionalidad, id_profesion nombres, apellidos, biografia, fecha_nacimiento)
+INSERT INTO elenco.artista (id_nacionalidad, id_profesion, nombres, apellidos, biografia, fecha_nacimiento)
 VALUES
     (13, 5, 'Thelma', 'Schoonmaker', 'Biografía de Thelma Schoonmaker...', '1940-01-03'),
     (14, 5, 'Michael', 'Kahn', 'Biografía de Michael Kahn...', '1935-12-08'),
     (15, 5, 'Sally', 'Menke', 'Biografía de Sally Menke...', '1953-12-17');
 
 -- Actores
-INSERT INTO elenco.artista (id_nacionalidad, id_profesion, nombres, apellidos, biografia, fecha_nacimiento)
+INSERT INTO elenco.artista (id_nacionalidad, id_profesion, manager, nombres, apellidos, biografia, fecha_nacimiento)
 VALUES
     (16, 6, 'Manager16', 'Tom', 'Hanks', 'Biografía de Tom Hanks...', '1956-07-09'),
     (17, 6, 'Manager17', 'Meryl', 'Streep', 'Biografía de Meryl Streep...', '1949-06-22'),
     (18, 6, 'Manager18', 'Leonardo', 'DiCaprio', 'Biografía de Leonardo DiCaprio...', '1974-11-11');
-select * from elenco.artista
 
 -- Insert de datos por defecto de la tabla site
 -- Insertar sitios para artistas actores

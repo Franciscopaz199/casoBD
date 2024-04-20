@@ -3829,7 +3829,8 @@
 							},
 							"name": "NombreCompaniaProductora",
 							"type": "VARCHAR",
-							"length": "100"
+							"length": "100",
+							"unique": true
 						}
 					]
 				},
