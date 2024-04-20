@@ -1,4 +1,4 @@
-CREATE DATABASE caso_fp;
+--CREATE DATABASE caso_fp;
 
 CREATE SCHEMA catalogo_programacion;
 CREATE SCHEMA elenco;
