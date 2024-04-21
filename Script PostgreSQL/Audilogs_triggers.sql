@@ -17,6 +17,7 @@ CREATE TABLE auditoria_peliculas (
     id_tipo_cambio INT,
     valores_anteriores JSONB,
     valores_nuevos JSONB,
+	FOREIGN KEY (id_pelicula) REFERENCES catalogo_programacion.pelicula (id_pelicula),
     FOREIGN KEY (id_tipo_cambio) REFERENCES tipo_cambio (id_tipo_cambio)
 );
 
@@ -31,8 +32,8 @@ BEGIN
         INSERT INTO auditoria_peliculas (id_pelicula, id_tipo_cambio, valores_anteriores, valores_nuevos)
         VALUES (NEW.id_pelicula, (SELECT id_tipo_cambio FROM tipo_cambio WHERE nombre_tipo_cambio = 'UPDATE'), to_jsonb(OLD), to_jsonb(NEW));
     ELSIF TG_OP = 'DELETE' THEN
-        INSERT INTO auditoria_peliculas (id_pelicula, id_tipo_cambio, valores_anteriores)
-        VALUES (OLD.id_pelicula, (SELECT id_tipo_cambio FROM tipo_cambio WHERE nombre_tipo_cambio = 'DELETE'), to_jsonb(OLD));
+        INSERT INTO auditoria_peliculas (id_tipo_cambio, valores_anteriores)
+        VALUES ((SELECT id_tipo_cambio FROM tipo_cambio WHERE nombre_tipo_cambio = 'DELETE'), to_jsonb(OLD));
     END IF;
     RETURN NULL;
 END;
@@ -53,6 +54,7 @@ CREATE TABLE auditoria_artista (
     id_tipo_cambio INT,
     valores_anteriores JSONB,
     valores_nuevos JSONB,
+    FOREIGN KEY (id_artista) REFERENCES elenco.artista (id_artista),
     FOREIGN KEY (id_tipo_cambio) REFERENCES tipo_cambio (id_tipo_cambio)
 );
 
@@ -67,8 +69,8 @@ BEGIN
         INSERT INTO auditoria_artista (id_artista, id_tipo_cambio, valores_anteriores, valores_nuevos)
         VALUES (NEW.id_artista, (SELECT id_tipo_cambio FROM tipo_cambio WHERE nombre_tipo_cambio = 'UPDATE'), to_jsonb(OLD), to_jsonb(NEW));
     ELSIF TG_OP = 'DELETE' THEN
-        INSERT INTO auditoria_artista (id_artista, id_tipo_cambio, valores_anteriores)
-        VALUES (OLD.id_artista, (SELECT id_tipo_cambio FROM tipo_cambio WHERE nombre_tipo_cambio = 'DELETE'), to_jsonb(OLD));
+        INSERT INTO auditoria_artista (id_tipo_cambio, valores_anteriores)
+        VALUES ((SELECT id_tipo_cambio FROM tipo_cambio WHERE nombre_tipo_cambio = 'DELETE'), to_jsonb(OLD));
     END IF;
     RETURN NULL;
 END;
@@ -89,6 +91,7 @@ CREATE TABLE auditoria_personaje (
     id_tipo_cambio INT,
     valores_anteriores JSONB,
     valores_nuevos JSONB,
+    FOREIGN KEY (id_personaje) REFERENCES elenco.personaje (id_personaje),
     FOREIGN KEY (id_tipo_cambio) REFERENCES tipo_cambio (id_tipo_cambio)
 );
 
@@ -103,8 +106,8 @@ BEGIN
         INSERT INTO auditoria_personaje (id_personaje, id_tipo_cambio, valores_anteriores, valores_nuevos)
         VALUES (NEW.id_personaje, (SELECT id_tipo_cambio FROM tipo_cambio WHERE nombre_tipo_cambio = 'UPDATE'), to_jsonb(OLD), to_jsonb(NEW));
     ELSIF TG_OP = 'DELETE' THEN
-        INSERT INTO auditoria_personaje (id_personaje, id_tipo_cambio, valores_anteriores)
-        VALUES (OLD.id_personaje, (SELECT id_tipo_cambio FROM tipo_cambio WHERE nombre_tipo_cambio = 'DELETE'), to_jsonb(OLD));
+        INSERT INTO auditoria_personaje (id_tipo_cambio, valores_anteriores)
+        VALUES ((SELECT id_tipo_cambio FROM tipo_cambio WHERE nombre_tipo_cambio = 'DELETE'), to_jsonb(OLD));
     END IF;
     RETURN NULL;
 END;
@@ -125,6 +128,7 @@ CREATE TABLE auditoria_programacion (
     id_tipo_cambio INT,
     valores_anteriores JSONB,
     valores_nuevos JSONB,
+    FOREIGN KEY (id_programacion) REFERENCES catalogo_programacion.programacion (id_programacion),
     FOREIGN KEY (id_tipo_cambio) REFERENCES tipo_cambio (id_tipo_cambio)
 );
 
@@ -139,8 +143,8 @@ BEGIN
         INSERT INTO auditoria_programacion (id_programacion, id_tipo_cambio, valores_anteriores, valores_nuevos)
         VALUES (NEW.id_programacion, (SELECT id_tipo_cambio FROM tipo_cambio WHERE nombre_tipo_cambio = 'UPDATE'), to_jsonb(OLD), to_jsonb(NEW));
     ELSIF TG_OP = 'DELETE' THEN
-        INSERT INTO auditoria_programacion (id_programacion, id_tipo_cambio, valores_anteriores)
-        VALUES (OLD.id_programacion, (SELECT id_tipo_cambio FROM tipo_cambio WHERE nombre_tipo_cambio = 'DELETE'), to_jsonb(OLD));
+        INSERT INTO auditoria_programacion (id_tipo_cambio, valores_anteriores)
+        VALUES ((SELECT id_tipo_cambio FROM tipo_cambio WHERE nombre_tipo_cambio = 'DELETE'), to_jsonb(OLD));
     END IF;
     RETURN NULL;
 END;
@@ -161,6 +165,7 @@ CREATE TABLE auditoria_espacio_especial (
     id_tipo_cambio INT,
     valores_anteriores JSONB,
     valores_nuevos JSONB,
+    FOREIGN KEY (id_espacio_especial) REFERENCES catalogo_programacion.espacio_especial (id_espacio_especial),
     FOREIGN KEY (id_tipo_cambio) REFERENCES tipo_cambio (id_tipo_cambio)
 );
 
@@ -175,8 +180,8 @@ BEGIN
         INSERT INTO auditoria_espacio_especial (id_espacio_especial, id_tipo_cambio, valores_anteriores, valores_nuevos)
         VALUES (NEW.id_espacio_especial, (SELECT id_tipo_cambio FROM tipo_cambio WHERE nombre_tipo_cambio = 'UPDATE'), to_jsonb(OLD), to_jsonb(NEW));
     ELSIF TG_OP = 'DELETE' THEN
-        INSERT INTO auditoria_espacio_especial (id_espacio_especial, id_tipo_cambio, valores_anteriores)
-        VALUES (OLD.id_espacio_especial, (SELECT id_tipo_cambio FROM tipo_cambio WHERE nombre_tipo_cambio = 'DELETE'), to_jsonb(OLD));
+        INSERT INTO auditoria_espacio_especial (id_tipo_cambio, valores_anteriores)
+        VALUES ((SELECT id_tipo_cambio FROM tipo_cambio WHERE nombre_tipo_cambio = 'DELETE'), to_jsonb(OLD));
     END IF;
     RETURN NULL;
 END;
@@ -197,6 +202,7 @@ CREATE TABLE auditoria_compania_productora (
     id_tipo_cambio INT,
     valores_anteriores JSONB,
     valores_nuevos JSONB,
+    FOREIGN KEY (id_compania_productora) REFERENCES catalogo_programacion.compania_productora (id_compania_productora),
     FOREIGN KEY (id_tipo_cambio) REFERENCES tipo_cambio (id_tipo_cambio)
 );
 
@@ -211,8 +217,8 @@ BEGIN
         INSERT INTO auditoria_compania_productora (id_compania_productora, id_tipo_cambio, valores_anteriores, valores_nuevos)
         VALUES (NEW.id_compania_productora, (SELECT id_tipo_cambio FROM tipo_cambio WHERE nombre_tipo_cambio = 'UPDATE'), to_jsonb(OLD), to_jsonb(NEW));
     ELSIF TG_OP = 'DELETE' THEN
-        INSERT INTO auditoria_compania_productora (id_compania_productora, id_tipo_cambio, valores_anteriores)
-        VALUES (OLD.id_compania_productora, (SELECT id_tipo_cambio FROM tipo_cambio WHERE nombre_tipo_cambio = 'DELETE'), to_jsonb(OLD));
+        INSERT INTO auditoria_compania_productora (id_tipo_cambio, valores_anteriores)
+        VALUES ((SELECT id_tipo_cambio FROM tipo_cambio WHERE nombre_tipo_cambio = 'DELETE'), to_jsonb(OLD));
     END IF;
     RETURN NULL;
 END;
