@@ -6,5 +6,3 @@ Ejemplo:
 ----------------------------------------------------
 # Ernesto -> El Caso se Presenta el lunes 22 de abril del 2024, quedan 4 dias a partir de hoy, es muy probable que el Caso se desarrolle exitosamente
 # 
-
-# anonimo -> El babys y el Ernesto se aman 
