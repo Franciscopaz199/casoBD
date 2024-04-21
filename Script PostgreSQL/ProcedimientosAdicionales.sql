@@ -45,7 +45,7 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-SELECT obtener_cartelera(); 
+SELECT * FROM obtener_cartelera(); 
 
 -- Sp para mostrar la cartelera, pero para una fecha determinada
 CREATE OR REPLACE FUNCTION obtener_cartelera_fecha(p_fecha_programacion date) 
@@ -378,8 +378,8 @@ RETURNS TABLE (
     fan_site_url varchar(150),
     personal_site_url varchar(150),
     fecha_nacimiento date,
-    director_en varchar(100),
-    guionista_en varchar(100)
+    director_en text,
+    guionista_en text
 ) AS $$
 DECLARE
     id_director int;
@@ -405,24 +405,32 @@ BEGIN
         es.fan_site_url,
         es.personal_site_url,
         ea.fecha_nacimiento,
-        cpp.nombre_pelicula AS director_en,
-        cpp.nombre_pelicula AS guionista_en
+        (
+			SELECT STRING_AGG(cpp.nombre_pelicula, ', ')
+			FROM elenco.artista ea_director 
+			INNER JOIN elenco.pelicula_artista_cargo epac_director ON ea_director.id_artista = epac_director.id_artista 
+			INNER JOIN catalogo_programacion.pelicula cpp ON epac_director.id_pelicula = cpp.id_pelicula
+			WHERE epac_director.id_tipo_cargo = id_director AND ea_director.id_artista = id_artista_mostrar
+		) AS director_en,
+        (
+			SELECT STRING_AGG(cpp.nombre_pelicula, ', ')
+			FROM elenco.artista ea_director 
+			INNER JOIN elenco.pelicula_artista_cargo epac_director ON ea_director.id_artista = epac_director.id_artista 
+			INNER JOIN catalogo_programacion.pelicula cpp ON epac_director.id_pelicula = cpp.id_pelicula
+			WHERE epac_director.id_tipo_cargo = id_guionista AND ea_director.id_artista = id_artista_mostrar
+		) AS guionista_en
     FROM 
         elenco.artista ea JOIN elenco.nacionalidad en ON ea.id_nacionalidad = en.id_nacionalidad
 			JOIN elenco.profesion ep 
 			ON ea.id_profesion = ep.id_profesion
 			LEFT JOIN elenco.sitie es 
 			ON ea.id_artista = es.id_artista
-			JOIN elenco.pelicula_artista_cargo epac 
-			ON ea.id_artista = epac.id_artista
-			RIGHT JOIN catalogo_programacion.pelicula cpp 
-			ON epac.id_pelicula = cpp.id_pelicula
     WHERE 
-        ea.id_artista = id_artista_mostrar AND (epac.id_tipo_cargo = id_director OR epac.id_tipo_cargo = id_guionista);
+        ea.id_artista = id_artista_mostrar;
 END;
 $$ LANGUAGE plpgsql;
 
-SELECT obtener_ficha_bibliografica_artista(1);
+SELECT * FROM obtener_ficha_bibliografica_artista(1);
 
 -- Sp para mostrar los artistas de una determinada nacionalidad
 CREATE OR REPLACE FUNCTION obtener_artistas_nacionalidad(nombre_nacionalidad_artista varchar(150)) 
