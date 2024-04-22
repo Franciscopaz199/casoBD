@@ -153,7 +153,7 @@ END;
 $$ LANGUAGE plpgsql;
 
 SELECT *
-FROM catalogo_programacion.pelicula
+FROM catalogo_programacion.pelicula;
 
 --Mostrar pelicula
 CREATE OR REPLACE FUNCTION mostrar_pelicula()

@@ -563,7 +563,7 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-SELECT obtener_ficha_pelicula(6);
+SELECT * FROM obtener_ficha_pelicula(6);
 
 -- Sp para listar las películas por genero
 CREATE OR REPLACE FUNCTION obtener_peliculas_genero(nombre_genero_moatrar varchar(50))
@@ -863,4 +863,4 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-SELECT obtener_datos_artista(2);
+SELECT * FROM obtener_datos_artista(2);
